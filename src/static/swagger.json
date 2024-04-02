@@ -1,0 +1,217 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+        "title": "Superhero API",
+        "description": "API to manage Superheroes",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://127.0.0.1:5000"
+        }
+    ],
+    "tags": [
+        {
+            "name": "superhero",
+            "description": "Everything about Superheroes"
+        }
+    ],
+    "paths": {
+        "/superheroes": {
+            "get": {
+                "tags": [
+                    "superhero"
+                ],
+                "summary": "Returns list of superheroes",
+                "operationId": "getSuperheroes",
+                "description": "Returns list of superheroes",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Superheroes not found"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "superhero"
+                ],
+                "summary": "Create a new superhero",
+                "operationId": "postSuperheroes",
+                "description": "Creates a new Superhero",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "requestBody": {
+                    "description": "Create a new superhero",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Superhero"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Superhero not found"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            }
+        },
+        "/superheroes/{id}": {
+            "get": {
+                "tags": [
+                    "superhero"
+                ],
+                "summary": "Returns a Superhero by id",
+                "operationId": "getSuperheroesId",
+                "description": "Returns a Superhero by id",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "description": "Superhero id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Superhero not found"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "superhero"
+                ],
+                "summary": "Update a superhero",
+                "operationId": "putSuperheroes",
+                "description": "Update the name of a superhero",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "description": "Superhero id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "description": "Update a superhero",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Superhero"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Superhero not found"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "superhero"
+                ],
+                "summary": "Delete a superhero",
+                "operationId": "deleteSuperheroes",
+                "description": "Delete a Superhero",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "description": "Superhero id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Superhero not found"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Superhero": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Superhero name",
+                        "example": "Superman"
+                    }
+                }
+            }
+        }
+    }
+}
