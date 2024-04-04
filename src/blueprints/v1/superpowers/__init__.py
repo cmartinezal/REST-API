@@ -1,3 +1,6 @@
+"""
+Endpoints for superpowers
+"""
 import json
 from flask import Blueprint, Flask, jsonify, request
 from helpers.functions import get_db_data, get_db_data_by_value, body_is_valid, insert_row, update_row, delete_row
@@ -14,8 +17,13 @@ def superpowers() -> dict:
         SELECT id, name, created_date FROM SUPERPOWERS;
         """
         superpower_list = get_db_data(query)
+
         if superpower_list is None or len(superpower_list) == 0:
             return jsonify({'error': 'superpowers not found.'}), 404
+
+        if 'error' in superpower_list:
+            return superpower_list, 500
+
         return jsonify(superpower_list)
 
     if request.method == "POST":
@@ -26,9 +34,13 @@ def superpowers() -> dict:
         if not superpower_body or not body_is_valid(superpower_body):
             return jsonify({'error': 'Invalid superpower properties.'}), 400
         name = superpower_body.get("name", "")
-        new_superpower = insert_row(
-            'INSERT INTO SUPERPOWERS(name) VALUES (?);', name, select_query)
-        return jsonify(new_superpower[0]), 201
+        response = insert_row(
+            'INSERT INTO SUPERPOWERS(name) VALUES (?);', [name], select_query)
+
+        if response and 'error' in response:
+            return response, 500
+
+        return jsonify(response[0]), 201
 
 
 @blueprint.route('/superpowers/<int:id>', methods=['GET', 'PUT', 'DELETE'])
@@ -39,10 +51,13 @@ def superpower(id: int) -> dict:
     SELECT id, name, created_date FROM SUPERPOWERS WHERE id = ?;
     """
 
-    superpower_list = get_db_data_by_value(query, id)
+    superpower_list = get_db_data_by_value(query, [id])
 
     if superpower_list is None or len(superpower_list) == 0:
         return jsonify({'error': 'superpower not found.'}), 404
+
+    if 'error' in superpower_list:
+        return superpower_list, 500
 
     if request.method == "GET":
         return jsonify(superpower_list[0])
@@ -51,13 +66,17 @@ def superpower(id: int) -> dict:
         updated_superpower = json.loads(request.data)
         if not body_is_valid(updated_superpower):
             return jsonify({'error': 'Invalid superpower properties.'}), 400
-        superpower_list = update_row(
+        response = update_row(
             'UPDATE SUPERPOWERS SET name=? WHERE id=?;', updated_superpower["name"], id, query)
-        return jsonify(superpower_list[0])
+
+        if response and 'error' in response:
+            return response, 500
+
+        return jsonify(response[0])
 
     if request.method == "DELETE":
         delete_row(
-            'DELETE FROM SUPERHERO_SUPERPOWERS WHERE superpower_id=?;', id)
+            'DELETE FROM SUPERHERO_SUPERPOWERS WHERE superpower_id=?;', [id])
         delete_row(
-            'DELETE FROM SUPERPOWERS WHERE id=?;', id)
+            'DELETE FROM SUPERPOWERS WHERE id=?;', [id])
         return '', 204
