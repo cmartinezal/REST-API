@@ -36,15 +36,9 @@ def get_db_data_by_value(query: str, value: int) -> dict:
     return data
 
 
-def insert_row(query: str, value: int) -> dict:
+def insert_row(query: str, value: int, select_query: str) -> dict:
     """insert new row"""
 
-    select_query = """
-    SELECT H.id, H.name, H.created_date, GROUP_CONCAT(P.name,', ') as superpowers
-    FROM SUPERHEROES H LEFT JOIN SUPERHERO_SUPERPOWERS HP ON H.id = HP.superhero_id
-    LEFT JOIN SUPERPOWERS P ON P.id=HP.superpower_id WHERE H.id = (SELECT MAX(id) FROM SUPERHEROES)
-    GROUP BY H.id, H.name, H.created_date;
-    """
     con = sqlite3.connect("superheroes.db")
     con.row_factory = row_to_dict
     cur = con.cursor()
@@ -56,15 +50,8 @@ def insert_row(query: str, value: int) -> dict:
     return data
 
 
-def update_row(query: str, value: int, row_id: int) -> dict:
+def update_row(query: str, value: int, row_id: int, select_query: str) -> dict:
     """update existing row"""
-
-    select_query = """
-    SELECT H.id, H.name, H.created_date, GROUP_CONCAT(P.name,', ') as superpowers
-    FROM SUPERHEROES H LEFT JOIN SUPERHERO_SUPERPOWERS HP ON H.id = HP.superhero_id
-    LEFT JOIN SUPERPOWERS P ON P.id=HP.superpower_id WHERE H.id = ?
-    GROUP BY H.id, H.name, H.created_date;
-    """
 
     con = sqlite3.connect("superheroes.db")
     con.row_factory = row_to_dict
@@ -89,7 +76,7 @@ def delete_row(query: str, value: int) -> dict:
     return 0
 
 
-def superhero_is_valid(superhero: dict) -> bool:
+def body_is_valid(superhero: dict) -> bool:
     """validate superhero data"""
 
     if 'name' in superhero and len(superhero.keys()) == 1:
