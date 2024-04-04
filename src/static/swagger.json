@@ -25,21 +25,46 @@
                 "summary": "Returns list of superheroes",
                 "operationId": "getSuperheroes",
                 "description": "Returns list of superheroes",
-                "produces": [
-                    "application/json"
-                ],
                 "responses": {
                     "200": {
-                        "description": "Successful operation"
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Superheroes"
+                                }
+                            }
+                        }
                     },
                     "400": {
-                        "description": "Bad request"
+                        "description": "Bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage400"
+                                }
+                            }
+                        }
                     },
                     "404": {
-                        "description": "Superheroes not found"
+                        "description": "Superheroes not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage404"
+                                }
+                            }
+                        }
                     },
                     "500": {
-                        "description": "Server error"
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage500"
+                                }
+                            }
+                        }
                     }
                 }
             },
@@ -50,34 +75,56 @@
                 "summary": "Create a new superhero",
                 "operationId": "postSuperheroes",
                 "description": "Creates a new Superhero",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
                 "requestBody": {
                     "description": "Create a new superhero",
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/Superhero"
+                                "$ref": "#/components/schemas/SuperheroName"
                             }
                         }
                     }
                 },
                 "responses": {
-                    "200": {
-                        "description": "Successful operation"
+                    "201": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Superhero"
+                                }
+                            }
+                        }
                     },
                     "400": {
-                        "description": "Bad request"
+                        "description": "Bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage400"
+                                }
+                            }
+                        }
                     },
                     "404": {
-                        "description": "Superhero not found"
+                        "description": "Superhero not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage404"
+                                }
+                            }
+                        }
                     },
                     "500": {
-                        "description": "Server error"
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage500"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -90,29 +137,58 @@
                 "summary": "Returns a Superhero by id",
                 "operationId": "getSuperheroesId",
                 "description": "Returns a Superhero by id",
-                "produces": [
-                    "application/json"
-                ],
                 "parameters": [
                     {
                         "name": "id",
                         "description": "Superhero id",
                         "in": "path",
-                        "required": true
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "Successful operation"
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Superhero"
+                                }
+                            }
+                        }
                     },
                     "400": {
-                        "description": "Bad request"
+                        "description": "Bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage400"
+                                }
+                            }
+                        }
                     },
                     "404": {
-                        "description": "Superhero not found"
+                        "description": "Superhero not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage404"
+                                }
+                            }
+                        }
                     },
                     "500": {
-                        "description": "Server error"
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage500"
+                                }
+                            }
+                        }
                     }
                 }
             },
@@ -123,18 +199,16 @@
                 "summary": "Update a superhero",
                 "operationId": "putSuperheroes",
                 "description": "Update the name of a superhero",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
                 "parameters": [
                     {
                         "name": "id",
                         "description": "Superhero id",
                         "in": "path",
-                        "required": true
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
                     }
                 ],
                 "requestBody": {
@@ -142,23 +216,51 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/Superhero"
+                                "$ref": "#/components/schemas/SuperheroName"
                             }
                         }
                     }
                 },
                 "responses": {
                     "200": {
-                        "description": "Successful operation"
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Superhero"
+                                }
+                            }
+                        }
                     },
                     "400": {
-                        "description": "Bad request"
+                        "description": "Bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage400"
+                                }
+                            }
+                        }
                     },
                     "404": {
-                        "description": "Superhero not found"
+                        "description": "Superhero not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage404"
+                                }
+                            }
+                        }
                     },
                     "500": {
-                        "description": "Server error"
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage500"
+                                }
+                            }
+                        }
                     }
                 }
             },
@@ -169,32 +271,58 @@
                 "summary": "Delete a superhero",
                 "operationId": "deleteSuperheroes",
                 "description": "Delete a Superhero",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
                 "parameters": [
                     {
                         "name": "id",
                         "description": "Superhero id",
                         "in": "path",
-                        "required": true
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
                     }
                 ],
                 "responses": {
-                    "200": {
-                        "description": "Successful operation"
+                    "204": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage204"
+                                }
+                            }
+                        }
                     },
                     "400": {
-                        "description": "Bad request"
+                        "description": "Bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage400"
+                                }
+                            }
+                        }
                     },
                     "404": {
-                        "description": "Superhero not found"
+                        "description": "Superhero not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage404"
+                                }
+                            }
+                        }
                     },
                     "500": {
-                        "description": "Server error"
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage500"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -202,7 +330,7 @@
     },
     "components": {
         "schemas": {
-            "Superhero": {
+            "SuperheroName": {
                 "type": "object",
                 "properties": {
                     "name": {
@@ -211,6 +339,100 @@
                         "example": "Superman"
                     }
                 }
+            },
+            "SuperheroId": {
+                "type": "integer",
+                "description": "Superhero Id",
+                "example": 1
+            },
+            "ErrorMessage404": {
+                "type": "string",
+                "description": "Error message",
+                "example": "Superhero not found"
+            },
+            "ErrorMessage400": {
+                "type": "string",
+                "description": "Error message",
+                "example": "Bad Request"
+            },
+            "ErrorMessage204": {
+                "type": "string",
+                "description": "Error message",
+                "example": "Successful operation"
+            },
+            "ErrorMessage500": {
+                "type": "string",
+                "description": "Error message",
+                "example": "Server Error"
+            },
+            "Superpower": {
+                "type": "string",
+                "description": "Superpower type",
+                "example": "Invisibility"
+            },
+            "Superhero": {
+                "type": "object",
+                "description": "Superhero data",
+                "properties": {
+                    "created_date": {
+                        "type": "string",
+                        "description": "Superhero created date",
+                        "example": "2024-04-02 14:27:46"
+                    },
+                    "id": {
+                        "$ref": "#/components/schemas/SuperheroId"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Superhero name",
+                        "example": "Superman"
+                    },
+                    "superpowers": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Superpower"
+                        },
+                        "example": [
+                            "Enhanced Strength",
+                            "Enhanced Flexibility"
+                        ]
+                    }
+                },
+                "example": {
+                    "created_date": "2024-04-02 14:27:46",
+                    "id": 1,
+                    "name": "Ant-Man",
+                    "superpowers": [
+                        "Enhanced Strength",
+                        "Enhanced Flexibility"
+                    ]
+                }
+            },
+            "Superheroes": {
+                "type": "array",
+                "description": "List of Superheroes",
+                "items": {
+                    "$ref": "#/components/schemas/Superhero"
+                },
+                "example": [
+                    {
+                        "created_date": "2024-04-02 14:27:46",
+                        "id": 1,
+                        "name": "Ant-Man",
+                        "superpowers": [
+                            "Enhanced Strength",
+                            "Enhanced Flexibility"
+                        ]
+                    },
+                    {
+                        "created_date": "2024-04-02 14:27:46",
+                        "id": 2,
+                        "name": "Aquaman",
+                        "superpowers": [
+                            "Enhanced Speed"
+                        ]
+                    }
+                ]
             }
         }
     }

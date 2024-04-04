@@ -10,43 +10,57 @@ def superheroes() -> dict:
     """Get a list of superheroes or create new"""
 
     if request.method == "GET":
-        superheroes = get_db_data('SELECT * FROM SUPERHEROES;')
-        if superheroes is None or len(superheroes) == 0:
+        query = """
+        SELECT H.id, H.name, H.created_date, GROUP_CONCAT(P.name,', ') as superpowers
+        FROM SUPERHEROES H LEFT JOIN SUPERHERO_SUPERPOWERS HP ON H.id = HP.superhero_id
+        LEFT JOIN SUPERPOWERS P ON P.id=HP.superpower_id
+        GROUP BY H.id, H.name, H.created_date;
+        """
+        superhero_list = get_db_data(query)
+        if superhero_list is None or len(superhero_list) == 0:
             return jsonify({'error': 'superheroes not found.'}), 404
-        return jsonify(superheroes)
+        return jsonify(superhero_list)
 
     if request.method == "POST":
-        superhero = request.get_json()
-        if not superhero or not superhero_is_valid(superhero):
+        superhero_body = request.get_json()
+        if not superhero_body or not superhero_is_valid(superhero_body):
             return jsonify({'error': 'Invalid superhero properties.'}), 400
-        name = superhero.get("name", "")
+        name = superhero_body.get("name", "")
         new_superhero = insert_row(
             'INSERT INTO SUPERHEROES(name) VALUES (?);', name)
-        return jsonify(new_superhero), 201
+        return jsonify(new_superhero[0]), 201
 
 
 @blueprint.route('/superheroes/<int:id>', methods=['GET', 'PUT', 'DELETE'])
-def superheroe(id: int) -> dict:
-    """Update existing superhero"""
+def superhero(id: int) -> dict:
+    """Get, update or delete existing superhero"""
 
-    superhero = get_db_data_by_value(
-        'SELECT * FROM SUPERHEROES WHERE id=?;', id)
+    query = """
+    SELECT H.id, H.name, H.created_date, GROUP_CONCAT(P.name,', ') as superpowers
+    FROM SUPERHEROES H LEFT JOIN SUPERHERO_SUPERPOWERS HP ON H.id = HP.superhero_id
+    LEFT JOIN SUPERPOWERS P ON P.id=HP.superpower_id WHERE H.id = ?
+    GROUP BY H.id, H.name, H.created_date;
+    """
 
-    if superhero is None or len(superhero) == 0:
+    superhero_list = get_db_data_by_value(query, id)
+
+    if superhero_list is None or len(superhero_list) == 0:
         return jsonify({'error': 'superhero not found.'}), 404
 
     if request.method == "GET":
-        return jsonify(superhero)
+        return jsonify(superhero_list[0])
 
     if request.method == "PUT":
         updated_superhero = json.loads(request.data)
         if not superhero_is_valid(updated_superhero):
             return jsonify({'error': 'Invalid superhero properties.'}), 400
-        superhero = update_row(
+        superhero_list = update_row(
             'UPDATE SUPERHEROES SET name=? WHERE id=?;', updated_superhero["name"], id)
-        return jsonify(superhero)
+        return jsonify(superhero_list[0])
 
     if request.method == "DELETE":
         delete_row(
+            'DELETE FROM SUPERHERO_SUPERPOWERS WHERE superhero_id=?;', id)
+        delete_row(
             'DELETE FROM SUPERHEROES WHERE id=?;', id)
-        return jsonify(superhero), 200
+        return '', 204
