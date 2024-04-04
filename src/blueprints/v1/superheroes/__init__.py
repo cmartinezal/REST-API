@@ -96,7 +96,7 @@ def superhero(id: int) -> dict:
 
 @blueprint.route('/superheroes/<int:id>/superpowers', methods=['GET', 'POST', 'DELETE'])
 def superhero_superpowers(id: int) -> dict:
-    """Get, create or delete Superhero superpowers"""
+    """Get, create or delete Superhero Superpowers"""
 
     superhero_query = """
     SELECT H.id
@@ -122,7 +122,7 @@ def superhero_superpowers(id: int) -> dict:
         superpower_list = get_db_data_by_value(query, [id])
 
         if superpower_list is None or len(superpower_list) == 0:
-            return jsonify({'error': 'Superhero has no superpowers.'}), 404
+            return jsonify({'error': 'Superhero has no Superpowers.'}), 404
 
         if 'error' in superpower_list:
             return superpower_list, 500
@@ -165,7 +165,7 @@ def superhero_superpowers(id: int) -> dict:
         if response and 'error' in response:
             return response, 500
 
-        return jsonify(response[0], 201)
+        return jsonify(response[0]), 201
 
     if request.method == "DELETE":
         if superpower is None or len(superpower) == 0:
