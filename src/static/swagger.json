@@ -12,15 +12,19 @@
     ],
     "tags": [
         {
-            "name": "superhero",
+            "name": "superheroes",
             "description": "Everything about Superheroes"
+        },
+        {
+            "name": "superpowers",
+            "description": "Everything about Superpowers"
         }
     ],
     "paths": {
         "/superheroes": {
             "get": {
                 "tags": [
-                    "superhero"
+                    "superheroes"
                 ],
                 "summary": "Returns list of superheroes",
                 "operationId": "getSuperheroes",
@@ -70,7 +74,7 @@
             },
             "post": {
                 "tags": [
-                    "superhero"
+                    "superheroes"
                 ],
                 "summary": "Create a new superhero",
                 "operationId": "postSuperheroes",
@@ -132,7 +136,7 @@
         "/superheroes/{id}": {
             "get": {
                 "tags": [
-                    "superhero"
+                    "superheroes"
                 ],
                 "summary": "Returns a Superhero by id",
                 "operationId": "getSuperheroesId",
@@ -194,7 +198,7 @@
             },
             "put": {
                 "tags": [
-                    "superhero"
+                    "superheroes"
                 ],
                 "summary": "Update a superhero",
                 "operationId": "putSuperheroes",
@@ -266,7 +270,7 @@
             },
             "delete": {
                 "tags": [
-                    "superhero"
+                    "superheroes"
                 ],
                 "summary": "Delete a superhero",
                 "operationId": "deleteSuperheroes",
@@ -275,6 +279,316 @@
                     {
                         "name": "id",
                         "description": "Superhero id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage204"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage400"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Superhero not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage404"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage500"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/superpowers": {
+            "get": {
+                "tags": [
+                    "superpowers"
+                ],
+                "summary": "Returns list of Superpowers",
+                "operationId": "getSuperpowers",
+                "description": "Returns list of Superpowers",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Superpowers"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage400"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Superpowers not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage404"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage500"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "superpowers"
+                ],
+                "summary": "Create a new Superpower",
+                "operationId": "postSuperpowers",
+                "description": "Creates a new Superpower",
+                "requestBody": {
+                    "description": "Create a new Superpower",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SuperpowerName"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SuperpowerDict"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage400"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Superhero not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage404"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage500"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/superpowers/{id}": {
+            "get": {
+                "tags": [
+                    "superpowers"
+                ],
+                "summary": "Returns a Superpower by id",
+                "operationId": "getSuperpowersId",
+                "description": "Returns a Superpower by id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "description": "Superpower id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SuperpowerDict"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage400"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Superhero not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage404"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage500"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "superpowers"
+                ],
+                "summary": "Update a Superpower",
+                "operationId": "putSuperpowers",
+                "description": "Update the name of a Superpower",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "description": "Superhero id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Update a Superpower",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SuperpowerName"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SuperpowerDict"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage400"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Superhero not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage404"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage500"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "superpowers"
+                ],
+                "summary": "Delete a Superpower",
+                "operationId": "deleteSuperpowers",
+                "description": "Delete a Superpower",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "description": "Superpower id",
                         "in": "path",
                         "required": true,
                         "schema": {
@@ -340,9 +654,24 @@
                     }
                 }
             },
+            "SuperpowerName": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Superpower name",
+                        "example": "Invisibility"
+                    }
+                }
+            },
             "SuperheroId": {
                 "type": "integer",
                 "description": "Superhero Id",
+                "example": 1
+            },
+            "SuperpowerId": {
+                "type": "integer",
+                "description": "Superpower Id",
                 "example": 1
             },
             "ErrorMessage404": {
@@ -407,6 +736,49 @@
                         "Enhanced Flexibility"
                     ]
                 }
+            },
+            "SuperpowerDict": {
+                "type": "object",
+                "description": "Superpowers data",
+                "properties": {
+                    "created_date": {
+                        "type": "string",
+                        "description": "Superpower created date",
+                        "example": "2024-04-02 14:27:46"
+                    },
+                    "id": {
+                        "$ref": "#/components/schemas/SuperpowerId"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Superpower name",
+                        "example": "Invisibility"
+                    }
+                },
+                "example": {
+                    "created_date": "2024-04-02 14:27:46",
+                    "id": 1,
+                    "name": "Invisibility"
+                }
+            },
+            "Superpowers": {
+                "type": "array",
+                "description": "List of Superpowers",
+                "items": {
+                    "$ref": "#/components/schemas/SuperpowerDict"
+                },
+                "example": [
+                    {
+                        "created_date": "2024-04-02 14:27:46",
+                        "id": 1,
+                        "name": "Invisibility"
+                    },
+                    {
+                        "created_date": "2024-04-02 14:27:46",
+                        "id": 2,
+                        "name": "Enhanced Speed"
+                    }
+                ]
             },
             "Superheroes": {
                 "type": "array",

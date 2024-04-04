@@ -1,8 +1,8 @@
 import json
 from flask import Flask, jsonify, request
 from flask_swagger_ui import get_swaggerui_blueprint
-from helpers.functions import get_db_data, get_db_data_by_value, superhero_is_valid, insert_row, update_row, delete_row
-from blueprints.v1.superheroes import blueprint as superhero_endpoints
+from blueprints.v1.superheroes import blueprint as superhero_endpoints_v1
+from blueprints.v1.superpowers import blueprint as superpower_endpoints_v1
 
 
 app = Flask(__name__)
@@ -17,7 +17,8 @@ swagger_ui_blueprint = get_swaggerui_blueprint(
     }
 )
 app.register_blueprint(swagger_ui_blueprint, url_prefix=SWAGGER_URL)
-app.register_blueprint(superhero_endpoints)
+app.register_blueprint(superhero_endpoints_v1)
+app.register_blueprint(superpower_endpoints_v1)
 
 if __name__ == '__main__':
     app.run(debug=True)
