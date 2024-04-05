@@ -1,8 +1,7 @@
-import json
-from flask import Flask, jsonify, request
+from flask import Flask
 from flask_swagger_ui import get_swaggerui_blueprint
-from blueprints.v1.superheroes import blueprint as superhero_endpoints_v1
-from blueprints.v1.superpowers import blueprint as superpower_endpoints_v1
+from routes.v1.superheroes import blueprint as superhero_endpoints_v1
+from routes.v1.superpowers import blueprint as superpower_endpoints_v1
 
 
 app = Flask(__name__)
