@@ -3,11 +3,38 @@ Utils module for validations
 """
 
 
-def body_is_valid(body: dict, is_superpower: bool = False) -> bool:
-    """validate request body data"""
+def validate_name_body(body: dict) -> bool:
+    """validate superhero body data"""
 
-    if is_superpower and 'id' in body and len(body.keys()) == 1:
-        return True
-    if not is_superpower and 'name' in body and len(body.keys()) == 1:
+    if 'name' in body and len(body.keys()) == 1:
         return True
     return False
+
+
+def validate_id_body(body: dict) -> bool:
+    """validate superpower body data"""
+
+    if 'id' in body and len(body.keys()) == 1:
+        return True
+    return False
+
+
+def validate_user_body(body: dict) -> bool:
+    """validate user body data"""
+
+    if len(body.keys()) != 4:
+        return False
+
+    if 'email' not in body:
+        return False
+
+    if 'first_name' not in body:
+        return False
+
+    if 'last_name' not in body:
+        return False
+
+    if 'password' not in body:
+        return False
+
+    return True

@@ -2,10 +2,10 @@
 """
 Helper functions for Superheroes
 """
-import json
-from flask import jsonify, request
+
+from flask import jsonify
 from typing import List
-from ...utils.validations import body_is_valid
+from ...utils.validations import validate_name_body
 from ...utils.database import get_db_data, get_db_data_by_value, insert_row, update_row, delete_row
 
 
@@ -38,7 +38,7 @@ def post_superhero(superhero_body: dict) -> dict:
     LEFT JOIN SUPERPOWERS P ON P.id = HP.superpower_id WHERE H.id = (SELECT MAX(id) FROM SUPERHEROES)
     GROUP BY H.id, H.name, H.created_date;
     """
-    if not superhero_body or not body_is_valid(superhero_body):
+    if not superhero_body or not validate_name_body(superhero_body):
         return jsonify({'error': 'Invalid Superhero properties.'}), 400
 
     name = superhero_body.get("name", "")
@@ -54,10 +54,10 @@ def post_superhero(superhero_body: dict) -> dict:
 def put_superhero(body: dict, query: str, id: int) -> dict:
     """Update a Superhero"""
 
-    if not body_is_valid(body):
+    if not validate_name_body(body):
         return jsonify({'error': 'Invalid Superhero properties.'}), 400
     response = update_row(
-        'UPDATE SUPERHEROES SET name=? WHERE id=?;', body["name"], id, query)
+        'UPDATE SUPERHEROES SET name=? WHERE id=?;', [body["name"], id], id, query)
 
     if response and 'error' in response:
         return response, 500

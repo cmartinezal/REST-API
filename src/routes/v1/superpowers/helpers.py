@@ -4,7 +4,7 @@ Helper functions for Superpowers
 """
 
 from flask import jsonify
-from ...utils.validations import body_is_valid
+from ...utils.validations import validate_name_body
 from ...utils.database import get_db_data, insert_row, update_row, delete_row
 
 
@@ -32,7 +32,7 @@ def post_superpower(body: dict) -> dict:
     SELECT id, name, created_date FROM SUPERPOWERS where id = (SELECT MAX(id) from SUPERPOWERS);
     """
 
-    if not body or not body_is_valid(body):
+    if not body or not validate_name_body(body):
         return jsonify({'error': 'Invalid Superpower properties.'}), 400
     name = body.get("name", "")
     response = insert_row(
@@ -47,10 +47,10 @@ def post_superpower(body: dict) -> dict:
 def put_superpower(body: dict, query: str, id: int) -> dict:
     """Update Superpower"""
 
-    if not body_is_valid(body):
+    if not validate_name_body(body):
         return jsonify({'error': 'Invalid Superpower properties.'}), 400
     response = update_row(
-        'UPDATE SUPERPOWERS SET name=? WHERE id=?;', body["name"], id, query)
+        'UPDATE SUPERPOWERS SET name=? WHERE id=?;', [body["name"], id], id, query)
 
     if response and 'error' in response:
         return response, 500

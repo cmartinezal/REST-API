@@ -5,7 +5,7 @@ Endpoints for Superheroes
 import json
 from flask import Blueprint, jsonify, request
 from ...utils.database import get_db_data_by_value
-from ...utils.validations import body_is_valid
+from ...utils.validations import validate_id_body
 from .helpers import *
 
 
@@ -71,7 +71,7 @@ def superhero_superpowers(id: int) -> dict:
         return get_superhero_superpowers(query, id)
 
     body = json.loads(request.data)
-    if not body_is_valid(body, True):
+    if not validate_id_body(body):
         return jsonify({'error': 'Invalid superpower properties.'}), 400
 
     if not superpower_exists(body['id']):
