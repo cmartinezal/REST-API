@@ -12,6 +12,10 @@
     ],
     "tags": [
         {
+            "name": "users",
+            "description": "Everything about Users"
+        },
+        {
             "name": "superheroes",
             "description": "Everything about Superheroes"
         },
@@ -848,6 +852,316 @@
                     }
                 }
             }
+        },
+        "/users": {
+            "get": {
+                "tags": [
+                    "users"
+                ],
+                "summary": "Returns list of users",
+                "operationId": "getUsers",
+                "description": "Returns list of users",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Users"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage400"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Superheroes not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage404"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage500"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "users"
+                ],
+                "summary": "Create a new User",
+                "operationId": "postUser",
+                "description": "Creates a new User",
+                "requestBody": {
+                    "description": "Create a new User",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateUser"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage400"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Superhero not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage404"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage500"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{id}": {
+            "get": {
+                "tags": [
+                    "users"
+                ],
+                "summary": "Returns a User by id",
+                "operationId": "getUserId",
+                "description": "Returns a User by id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "description": "User id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage400"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Superhero not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage404"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage500"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "users"
+                ],
+                "summary": "Update a User",
+                "operationId": "putUser",
+                "description": "Update User data",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "description": "User id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Update a User",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateUser"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage400"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Superhero not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage404"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage500"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "users"
+                ],
+                "summary": "Delete a User",
+                "operationId": "deleteUser",
+                "description": "Delete a User",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "description": "User id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage204"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage400"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Superhero not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage404"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage500"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -1023,6 +1337,97 @@
                         ]
                     }
                 ]
+            },
+            "Users": {
+                "type": "array",
+                "description": "List of Users",
+                "items": {
+                    "$ref": "#/components/schemas/User"
+                },
+                "example": [
+                    {
+                        "created_date": "2024-04-02 14:27:46",
+                        "id": 1,
+                        "first_name": "Charity",
+                        "last_name": "Howe",
+                        "email": "chowe@web.com"
+                    },
+                    {
+                        "created_date": "2024-04-02 14:27:46",
+                        "id": 2,
+                        "first_name": "Hamish",
+                        "last_name": "Schmidt",
+                        "email": "hamish.schmidt@web.com"
+                    }
+                ]
+            },
+            "User": {
+                "type": "object",
+                "description": "User data",
+                "properties": {
+                    "created_date": {
+                        "type": "string",
+                        "description": "User created date",
+                        "example": "2024-04-02 14:27:46"
+                    },
+                    "id": {
+                        "$ref": "#/components/schemas/SuperheroId"
+                    },
+                    "first_name": {
+                        "type": "string",
+                        "description": "User first name",
+                        "example": "Hamish"
+                    },
+                    "last_name": {
+                        "type": "string",
+                        "description": "User last name",
+                        "example": "Schmidt"
+                    },
+                    "email": {
+                        "type": "string",
+                        "description": "User email",
+                        "example": "hamish.schmidt@web.com"
+                    }
+                },
+                "example": {
+                    "created_date": "2024-04-02 14:27:46",
+                    "id": 2,
+                    "first_name": "Hamish",
+                    "last_name": "Schmidt",
+                    "email": "hamish.schmidt@web.com"
+                }
+            },
+            "CreateUser": {
+                "type": "object",
+                "description": "User data",
+                "properties": {
+                    "first_name": {
+                        "type": "string",
+                        "description": "User first name",
+                        "example": "Hamish"
+                    },
+                    "last_name": {
+                        "type": "string",
+                        "description": "User last name",
+                        "example": "Schmidt"
+                    },
+                    "email": {
+                        "type": "string",
+                        "description": "User email",
+                        "example": "hamish.schmidt@web.com"
+                    },
+                    "password": {
+                        "type": "string",
+                        "description": "User password",
+                        "example": "secret"
+                    }
+                },
+                "example": {
+                    "first_name": "Hamish",
+                    "last_name": "Schmidt",
+                    "email": "hamish.schmidt@web.com",
+                    "password": "secret"
+                }
             }
         }
     }
