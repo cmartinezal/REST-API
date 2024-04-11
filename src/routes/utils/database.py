@@ -69,13 +69,13 @@ def insert_row(query: str, values: List[int], select_query: str, select_values: 
         con.close()
 
 
-def update_row(query: str, value: int, row_id: int, select_query: str) -> dict:
+def update_row(query: str, values: List[str], row_id: int, select_query: str) -> dict:
     """update existing row"""
     try:
         con = sqlite3.connect("superheroes.db")
         con.row_factory = row_to_dict
         cur = con.cursor()
-        cur.execute(query, [value, row_id])
+        cur.execute(query, values)
         con.commit()
         cur.execute(select_query, [row_id])
         data = cur.fetchall()
