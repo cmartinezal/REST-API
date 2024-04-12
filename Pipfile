@@ -7,6 +7,8 @@ name = "pypi"
 flask = "*"
 flask-swagger-ui = "*"
 werkzeug = "*"
+flask-jwt-extended = "==4.5.3"
+bcrypt = "*"
 jwt = "*"
 
 [dev-packages]
