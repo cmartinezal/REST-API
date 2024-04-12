@@ -12,7 +12,7 @@ blueprint = Blueprint("users", __name__, url_prefix="/api/v1")
 
 
 @blueprint.route("/users", methods=["GET", "POST"])
-@jwt_required()
+@jwt_required(fresh=True)
 def users() -> dict:
     """Get a list of users or create new"""
 
@@ -25,7 +25,7 @@ def users() -> dict:
 
 
 @blueprint.route("/users/<int:id>", methods=["GET", "PUT", "DELETE"])
-@jwt_required()
+@jwt_required(fresh=True)
 def user(id: int) -> dict:
     """Get, update or delete existing User"""
 

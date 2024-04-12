@@ -14,7 +14,7 @@ blueprint = Blueprint("superheroes", __name__, url_prefix="/api/v1")
 
 
 @blueprint.route("/superheroes", methods=["GET", "POST"])
-@jwt_required()
+@jwt_required(fresh=True)
 def superheroes() -> dict:
     """Get a list of superheroes or create new"""
 
@@ -27,7 +27,7 @@ def superheroes() -> dict:
 
 
 @blueprint.route("/superheroes/<int:id>", methods=["GET", "PUT", "DELETE"])
-@jwt_required()
+@jwt_required(fresh=True)
 def superhero(id: int) -> dict:
     """Get, update or delete existing Superhero"""
 
@@ -58,7 +58,7 @@ def superhero(id: int) -> dict:
 
 
 @blueprint.route("/superheroes/<int:id>/superpowers", methods=["GET", "POST", "DELETE"])
-@jwt_required()
+@jwt_required(fresh=True)
 def superhero_superpowers(id: int) -> dict:
     """Get, create or delete Superhero Superpowers"""
 
