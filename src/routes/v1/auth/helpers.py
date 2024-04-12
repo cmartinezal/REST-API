@@ -19,9 +19,6 @@ def get_token(auth: dict) -> dict:
     user = get_db_data_by_value(
         "SELECT id, email, password FROM USERS WHERE email = ?", [auth["email"],])
 
-    print(user)
-    print(auth)
-
     if not user:
         return jsonify({"error": "Unauthorized"}), 401
 
