@@ -8,10 +8,10 @@ from .helpers import *
 from flask_jwt_extended import jwt_required
 
 
-blueprint = Blueprint('auth', __name__, url_prefix='/api/v1')
+blueprint = Blueprint("auth", __name__, url_prefix="/api/v1")
 
 
-@blueprint.route('/auth/token', methods=['POST'])
+@blueprint.route("/auth/token", methods=["POST"])
 def users() -> dict:
     """Get a API token"""
 
@@ -19,7 +19,7 @@ def users() -> dict:
     return get_token(body)
 
 
-@blueprint.route('/auth/refresh', methods=['POST'])
+@blueprint.route("/auth/refresh", methods=["POST"])
 @jwt_required(refresh=True)
 def refresh() -> dict:
     """Refresh a API token"""

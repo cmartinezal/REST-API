@@ -9,8 +9,8 @@ def row_to_dict(cursor: sqlite3.Cursor, row: sqlite3.Row) -> dict:
     """format data to dictionary"""
     data = {}
     for idx, col in enumerate(cursor.description):
-        if (col[0]) == 'superpowers' and isinstance(row[idx], str):
-            data[col[0]] = row[idx].split(', ')
+        if (col[0]) == "superpowers" and isinstance(row[idx], str):
+            data[col[0]] = row[idx].split(", ")
         else:
             data[col[0]] = row[idx]
     return data
@@ -29,7 +29,7 @@ def get_db_data(query: str) -> dict:
         return data
 
     except Exception as e:
-        return {'error': str(e)}
+        return {"error": str(e)}
     finally:
         con.close()
 
@@ -45,7 +45,7 @@ def get_db_data_by_value(query: str, values: List[int]) -> dict:
 
         return data
     except Exception as e:
-        return {'error': str(e)}
+        return {"error": str(e)}
     finally:
         con.close()
 
@@ -64,7 +64,7 @@ def insert_row(query: str, values: List[int], select_query: str, select_values: 
 
         return data
     except Exception as e:
-        return {'error': str(e)}
+        return {"error": str(e)}
     finally:
         con.close()
 
@@ -82,7 +82,7 @@ def update_row(query: str, values: List[str], row_id: int, select_query: str) ->
 
         return data
     except Exception as e:
-        return {'error': str(e)}
+        return {"error": str(e)}
     finally:
         con.close()
 
@@ -98,6 +98,6 @@ def delete_row(query: str, values: List[int]) -> dict:
 
         return 0
     except Exception as e:
-        return {'error': str(e)}
+        return {"error": str(e)}
     finally:
         con.close()

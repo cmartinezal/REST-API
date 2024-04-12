@@ -7,10 +7,10 @@ from .helpers import *
 from ...utils.database import get_db_data_by_value
 from flask_jwt_extended import jwt_required
 
-blueprint = Blueprint('superpowers', __name__, url_prefix='/api/v1')
+blueprint = Blueprint("superpowers", __name__, url_prefix="/api/v1")
 
 
-@blueprint.route('/superpowers', methods=['GET', 'POST'])
+@blueprint.route("/superpowers", methods=["GET", "POST"])
 @jwt_required()
 def superpowers() -> dict:
     """Get a list of Superpowers or create new"""
@@ -23,7 +23,7 @@ def superpowers() -> dict:
         return post_superpower(body)
 
 
-@blueprint.route('/superpowers/<int:id>', methods=['GET', 'PUT', 'DELETE'])
+@blueprint.route("/superpowers/<int:id>", methods=["GET", "PUT", "DELETE"])
 @jwt_required()
 def superpower(id: int) -> dict:
     """Get, update or delete existing Superpowers"""
@@ -35,9 +35,9 @@ def superpower(id: int) -> dict:
     superpower_list = get_db_data_by_value(query, [id])
 
     if superpower_list is None or len(superpower_list) == 0:
-        return jsonify({'error': 'Superpower not found.'}), 404
+        return jsonify({"error": "Superpower not found."}), 404
 
-    if 'error' in superpower_list:
+    if "error" in superpower_list:
         return superpower_list, 500
 
     if request.method == "GET":

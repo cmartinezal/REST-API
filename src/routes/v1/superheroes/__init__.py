@@ -10,10 +10,10 @@ from .helpers import *
 from flask_jwt_extended import jwt_required
 
 
-blueprint = Blueprint('superheroes', __name__, url_prefix='/api/v1')
+blueprint = Blueprint("superheroes", __name__, url_prefix="/api/v1")
 
 
-@blueprint.route('/superheroes', methods=['GET', 'POST'])
+@blueprint.route("/superheroes", methods=["GET", "POST"])
 @jwt_required()
 def superheroes() -> dict:
     """Get a list of superheroes or create new"""
@@ -26,13 +26,13 @@ def superheroes() -> dict:
         return post_superhero(superhero_body)
 
 
-@blueprint.route('/superheroes/<int:id>', methods=['GET', 'PUT', 'DELETE'])
+@blueprint.route("/superheroes/<int:id>", methods=["GET", "PUT", "DELETE"])
 @jwt_required()
 def superhero(id: int) -> dict:
     """Get, update or delete existing Superhero"""
 
     query = """
-    SELECT H.id, H.name, H.created_date, GROUP_CONCAT(P.name,', ') as superpowers
+    SELECT H.id, H.name, H.created_date, GROUP_CONCAT(P.name,", ") as superpowers
     FROM SUPERHEROES H LEFT JOIN SUPERHERO_SUPERPOWERS HP ON H.id = HP.superhero_id
     LEFT JOIN SUPERPOWERS P ON P.id = HP.superpower_id WHERE H.id = ?
     GROUP BY H.id, H.name, H.created_date;
@@ -41,9 +41,9 @@ def superhero(id: int) -> dict:
     superhero_list = get_db_data_by_value(query, [id])
 
     if superhero_list is None or len(superhero_list) == 0:
-        return jsonify({'error': 'Superhero not found.'}), 404
+        return jsonify({"error": "Superhero not found."}), 404
 
-    if 'error' in superhero_list:
+    if "error" in superhero_list:
         return superhero_list, 500
 
     if request.method == "GET":
@@ -57,7 +57,7 @@ def superhero(id: int) -> dict:
         return delete_superhero(id)
 
 
-@blueprint.route('/superheroes/<int:id>/superpowers', methods=['GET', 'POST', 'DELETE'])
+@blueprint.route("/superheroes/<int:id>/superpowers", methods=["GET", "POST", "DELETE"])
 @jwt_required()
 def superhero_superpowers(id: int) -> dict:
     """Get, create or delete Superhero Superpowers"""
@@ -69,26 +69,26 @@ def superhero_superpowers(id: int) -> dict:
     """
 
     if not superhero_exists(id):
-        return jsonify({'error': 'Superhero not found.'}), 404
+        return jsonify({"error": "Superhero not found."}), 404
 
     if request.method == "GET":
         return get_superhero_superpowers(query, id)
 
     body = json.loads(request.data)
     if not validate_id_body(body):
-        return jsonify({'error': 'Invalid superpower properties.'}), 400
+        return jsonify({"error": "Invalid superpower properties."}), 400
 
-    if not superpower_exists(body['id']):
-        return jsonify({'error': 'Superpower not found.'}), 404
+    if not superpower_exists(body["id"]):
+        return jsonify({"error": "Superpower not found."}), 404
 
     select_query = """
     SELECT P.id
     FROM SUPERPOWERS P, SUPERHERO_SUPERPOWERS HP 
     WHERE P.id = HP.superpower_id AND HP.superhero_id = ? AND P.ID = ?;
     """
-    superpower = get_db_data_by_value(select_query, [id, body['id']])
+    superpower = get_db_data_by_value(select_query, [id, body["id"]])
 
-    if superpower and 'error' in superpower:
+    if superpower and "error" in superpower:
         return superpower, 500
 
     if request.method == "POST":

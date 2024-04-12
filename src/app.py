@@ -13,12 +13,12 @@ from routes.v1.auth import blueprint as auth_endpoints_v1
 app = Flask(__name__)
 
 SECRET_KEY = bcrypt.hashpw(
-    b'63a01ef2fc32945d768cb7c7aaa1b168', bcrypt.gensalt())
+    b"63a01ef2fc32945d768cb7c7aaa1b168", bcrypt.gensalt())
 
 app.config["JWT_SECRET_KEY"] = SECRET_KEY
 app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(minutes=15)
 app.config["JWT_REFRESH_TOKEN_EXPIRES"] = timedelta(minutes=20)
-app.config['JWT_ALGORITHM'] = 'HS256'
+app.config["JWT_ALGORITHM"] = "HS256"
 
 jwt = JWTManager(app)
 
@@ -29,7 +29,7 @@ swagger_ui_blueprint = get_swaggerui_blueprint(
     SWAGGER_URL,
     API_URL,
     config={
-        'app_name': 'Superhero API'
+        "app_name": "Superhero API"
     }
 )
 app.register_blueprint(swagger_ui_blueprint, url_prefix=SWAGGER_URL)
@@ -41,5 +41,5 @@ app.register_blueprint(superpower_endpoints_v1)
 # admin@web.com/admin
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run(debug=True)

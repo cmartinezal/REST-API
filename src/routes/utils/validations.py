@@ -6,7 +6,7 @@ Utils module for validations
 def validate_name_body(body: dict) -> bool:
     """validate superhero body data"""
 
-    if 'name' in body and len(body.keys()) == 1:
+    if "name" in body and len(body.keys()) == 1:
         return True
     return False
 
@@ -14,7 +14,7 @@ def validate_name_body(body: dict) -> bool:
 def validate_id_body(body: dict) -> bool:
     """validate superpower body data"""
 
-    if 'id' in body and len(body.keys()) == 1:
+    if "id" in body and len(body.keys()) == 1:
         return True
     return False
 
@@ -25,16 +25,16 @@ def validate_user_body(body: dict) -> bool:
     if len(body.keys()) != 4:
         return False
 
-    if 'email' not in body:
+    if "email" not in body:
         return False
 
-    if 'first_name' not in body:
+    if "first_name" not in body:
         return False
 
-    if 'last_name' not in body:
+    if "last_name" not in body:
         return False
 
-    if 'password' not in body:
+    if "password" not in body:
         return False
 
     return True
