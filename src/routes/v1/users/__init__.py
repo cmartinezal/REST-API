@@ -6,12 +6,13 @@ import json
 from flask import Blueprint, jsonify, request
 from ...utils.database import get_db_data_by_value
 from .helpers import *
-
+from flask_jwt_extended import jwt_required
 
 blueprint = Blueprint('users', __name__, url_prefix='/api/v1')
 
 
 @blueprint.route('/users', methods=['GET', 'POST'])
+@jwt_required()
 def users() -> dict:
     """Get a list of users or create new"""
 
@@ -24,6 +25,7 @@ def users() -> dict:
 
 
 @blueprint.route('/users/<int:id>', methods=['GET', 'PUT', 'DELETE'])
+@jwt_required()
 def user(id: int) -> dict:
     """Get, update or delete existing User"""
 

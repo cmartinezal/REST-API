@@ -7,12 +7,14 @@ from flask import Blueprint, jsonify, request
 from ...utils.database import get_db_data_by_value
 from ...utils.validations import validate_id_body
 from .helpers import *
+from flask_jwt_extended import jwt_required
 
 
 blueprint = Blueprint('superheroes', __name__, url_prefix='/api/v1')
 
 
 @blueprint.route('/superheroes', methods=['GET', 'POST'])
+@jwt_required()
 def superheroes() -> dict:
     """Get a list of superheroes or create new"""
 
@@ -25,6 +27,7 @@ def superheroes() -> dict:
 
 
 @blueprint.route('/superheroes/<int:id>', methods=['GET', 'PUT', 'DELETE'])
+@jwt_required()
 def superhero(id: int) -> dict:
     """Get, update or delete existing Superhero"""
 
@@ -55,6 +58,7 @@ def superhero(id: int) -> dict:
 
 
 @blueprint.route('/superheroes/<int:id>/superpowers', methods=['GET', 'POST', 'DELETE'])
+@jwt_required()
 def superhero_superpowers(id: int) -> dict:
     """Get, create or delete Superhero Superpowers"""
 

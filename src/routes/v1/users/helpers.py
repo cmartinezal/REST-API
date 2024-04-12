@@ -2,11 +2,11 @@
 Helper functions for Users
 """
 
-from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.security import generate_password_hash
 from flask import jsonify
 from typing import List
 from ...utils.validations import validate_user_body
-from ...utils.database import get_db_data, get_db_data_by_value, insert_row, update_row, delete_row
+from ...utils.database import get_db_data, insert_row, update_row, delete_row
 
 
 def get_users() -> dict:

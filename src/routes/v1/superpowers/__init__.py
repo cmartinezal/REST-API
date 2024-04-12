@@ -5,11 +5,13 @@ import json
 from flask import Blueprint, jsonify, request
 from .helpers import *
 from ...utils.database import get_db_data_by_value
+from flask_jwt_extended import jwt_required
 
 blueprint = Blueprint('superpowers', __name__, url_prefix='/api/v1')
 
 
 @blueprint.route('/superpowers', methods=['GET', 'POST'])
+@jwt_required()
 def superpowers() -> dict:
     """Get a list of Superpowers or create new"""
 
@@ -22,6 +24,7 @@ def superpowers() -> dict:
 
 
 @blueprint.route('/superpowers/<int:id>', methods=['GET', 'PUT', 'DELETE'])
+@jwt_required()
 def superpower(id: int) -> dict:
     """Get, update or delete existing Superpowers"""
 
