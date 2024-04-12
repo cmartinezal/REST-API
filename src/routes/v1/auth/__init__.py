@@ -13,7 +13,7 @@ blueprint = Blueprint("auth", __name__, url_prefix="/api/v1")
 
 @blueprint.route("/auth/token", methods=["POST"])
 def users() -> dict:
-    """Get a API token"""
+    """Get the API token"""
 
     body = request.get_json()
     return get_token(body)
@@ -22,7 +22,6 @@ def users() -> dict:
 @blueprint.route("/auth/refresh", methods=["POST"])
 @jwt_required(refresh=True)
 def refresh() -> dict:
-    """Refresh a API token"""
+    """Refresh the API token"""
 
-    auth = request.authorization
-    return refresh_token(auth)
+    return refresh_token()

@@ -33,7 +33,8 @@ def get_token(auth: dict) -> dict:
     return jsonify({"error": "Unauthorized"}), 401
 
 
-def refresh_token():
+def refresh_token() -> None:
     identity = get_jwt_identity()
-    access_token = create_access_token(identity=identity, fresh=False)
-    return jsonify({"access_token": access_token}), 200
+    access_token = create_access_token(identity=identity, fresh=True)
+    refresh_token = create_refresh_token(identity)
+    return jsonify({"access_token": access_token, "refresh_token": refresh_token}), 200
