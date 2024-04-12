@@ -12,6 +12,10 @@
     ],
     "tags": [
         {
+            "name": "auth",
+            "description": "Everything about Authentication"
+        },
+        {
             "name": "users",
             "description": "Everything about Users"
         },
@@ -25,10 +29,174 @@
         }
     ],
     "paths": {
+        "/auth/token": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Get token for Authorized endpoints",
+                "operationId": "postToken",
+                "description": "Creates a new Token",
+                "requestBody": {
+                    "description": "Create a new Token",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UserAuth"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserAuth"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage400"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage401"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage403"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Superhero not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage404"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage500"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/refresh": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "summary": "Refresh token for Authorized endpoints",
+                "operationId": "postTokenRefresh",
+                "description": "Refresh Token",
+                "responses": {
+                    "201": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserAuth"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage400"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage401"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage403"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Superhero not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage404"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage500"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/superheroes": {
             "get": {
                 "tags": [
                     "superheroes"
+                ],
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
                 ],
                 "summary": "Returns list of superheroes",
                 "operationId": "getSuperheroes",
@@ -50,6 +218,26 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/ErrorMessage400"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage401"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage403"
                                 }
                             }
                         }
@@ -79,6 +267,11 @@
             "post": {
                 "tags": [
                     "superheroes"
+                ],
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
                 ],
                 "summary": "Create a new Superhero",
                 "operationId": "postSuperheroes",
@@ -114,6 +307,26 @@
                             }
                         }
                     },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage401"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage403"
+                                }
+                            }
+                        }
+                    },
                     "404": {
                         "description": "Superhero not found",
                         "content": {
@@ -141,6 +354,11 @@
             "get": {
                 "tags": [
                     "superheroes"
+                ],
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
                 ],
                 "summary": "Returns a Superhero by id",
                 "operationId": "getSuperheroesId",
@@ -178,6 +396,26 @@
                             }
                         }
                     },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage401"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage403"
+                                }
+                            }
+                        }
+                    },
                     "404": {
                         "description": "Superhero not found",
                         "content": {
@@ -203,6 +441,11 @@
             "put": {
                 "tags": [
                     "superheroes"
+                ],
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
                 ],
                 "summary": "Update a Superhero",
                 "operationId": "putSuperheroes",
@@ -250,6 +493,26 @@
                             }
                         }
                     },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage401"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage403"
+                                }
+                            }
+                        }
+                    },
                     "404": {
                         "description": "Superhero not found",
                         "content": {
@@ -275,6 +538,11 @@
             "delete": {
                 "tags": [
                     "superheroes"
+                ],
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
                 ],
                 "summary": "Delete a Superhero",
                 "operationId": "deleteSuperheroes",
@@ -312,6 +580,26 @@
                             }
                         }
                     },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage401"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage403"
+                                }
+                            }
+                        }
+                    },
                     "404": {
                         "description": "Superhero not found",
                         "content": {
@@ -339,6 +627,11 @@
             "get": {
                 "tags": [
                     "superheroes"
+                ],
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
                 ],
                 "summary": "Returns Superhero Superpowers by id",
                 "operationId": "getSuperheroesSuperpowersId",
@@ -376,6 +669,26 @@
                             }
                         }
                     },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage401"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage403"
+                                }
+                            }
+                        }
+                    },
                     "404": {
                         "description": "Superhero not found",
                         "content": {
@@ -401,6 +714,11 @@
             "post": {
                 "tags": [
                     "superheroes"
+                ],
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
                 ],
                 "summary": "Add Superpower to a Superhero",
                 "operationId": "postSuperheroesSuperpower",
@@ -448,6 +766,26 @@
                             }
                         }
                     },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage401"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage403"
+                                }
+                            }
+                        }
+                    },
                     "404": {
                         "description": "Superhero not found",
                         "content": {
@@ -473,6 +811,11 @@
             "delete": {
                 "tags": [
                     "superheroes"
+                ],
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
                 ],
                 "summary": "Delete a Superhero Superpower",
                 "operationId": "deleteSuperheroesSuperpower",
@@ -520,6 +863,26 @@
                             }
                         }
                     },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage401"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage403"
+                                }
+                            }
+                        }
+                    },
                     "404": {
                         "description": "Superhero not found",
                         "content": {
@@ -548,6 +911,11 @@
                 "tags": [
                     "superpowers"
                 ],
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "summary": "Returns list of Superpowers",
                 "operationId": "getSuperpowers",
                 "description": "Returns list of Superpowers",
@@ -568,6 +936,26 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/ErrorMessage400"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage401"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage403"
                                 }
                             }
                         }
@@ -597,6 +985,11 @@
             "post": {
                 "tags": [
                     "superpowers"
+                ],
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
                 ],
                 "summary": "Create a new Superpower",
                 "operationId": "postSuperpowers",
@@ -632,6 +1025,26 @@
                             }
                         }
                     },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage401"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage403"
+                                }
+                            }
+                        }
+                    },
                     "404": {
                         "description": "Superhero not found",
                         "content": {
@@ -659,6 +1072,11 @@
             "get": {
                 "tags": [
                     "superpowers"
+                ],
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
                 ],
                 "summary": "Returns a Superpower by id",
                 "operationId": "getSuperpowersId",
@@ -696,6 +1114,26 @@
                             }
                         }
                     },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage401"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage403"
+                                }
+                            }
+                        }
+                    },
                     "404": {
                         "description": "Superhero not found",
                         "content": {
@@ -721,6 +1159,11 @@
             "put": {
                 "tags": [
                     "superpowers"
+                ],
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
                 ],
                 "summary": "Update a Superpower",
                 "operationId": "putSuperpowers",
@@ -768,6 +1211,26 @@
                             }
                         }
                     },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage401"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage403"
+                                }
+                            }
+                        }
+                    },
                     "404": {
                         "description": "Superhero not found",
                         "content": {
@@ -793,6 +1256,11 @@
             "delete": {
                 "tags": [
                     "superpowers"
+                ],
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
                 ],
                 "summary": "Delete a Superpower",
                 "operationId": "deleteSuperpowers",
@@ -830,6 +1298,26 @@
                             }
                         }
                     },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage401"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage403"
+                                }
+                            }
+                        }
+                    },
                     "404": {
                         "description": "Superhero not found",
                         "content": {
@@ -858,6 +1346,11 @@
                 "tags": [
                     "users"
                 ],
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "summary": "Returns list of users",
                 "operationId": "getUsers",
                 "description": "Returns list of users",
@@ -878,6 +1371,26 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/ErrorMessage400"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage401"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage403"
                                 }
                             }
                         }
@@ -907,6 +1420,11 @@
             "post": {
                 "tags": [
                     "users"
+                ],
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
                 ],
                 "summary": "Create a new User",
                 "operationId": "postUser",
@@ -942,6 +1460,26 @@
                             }
                         }
                     },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage401"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage403"
+                                }
+                            }
+                        }
+                    },
                     "404": {
                         "description": "Superhero not found",
                         "content": {
@@ -969,6 +1507,11 @@
             "get": {
                 "tags": [
                     "users"
+                ],
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
                 ],
                 "summary": "Returns a User by id",
                 "operationId": "getUserId",
@@ -1006,6 +1549,26 @@
                             }
                         }
                     },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage401"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage403"
+                                }
+                            }
+                        }
+                    },
                     "404": {
                         "description": "Superhero not found",
                         "content": {
@@ -1031,6 +1594,11 @@
             "put": {
                 "tags": [
                     "users"
+                ],
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
                 ],
                 "summary": "Update a User",
                 "operationId": "putUser",
@@ -1078,6 +1646,26 @@
                             }
                         }
                     },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage401"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage403"
+                                }
+                            }
+                        }
+                    },
                     "404": {
                         "description": "Superhero not found",
                         "content": {
@@ -1103,6 +1691,11 @@
             "delete": {
                 "tags": [
                     "users"
+                ],
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
                 ],
                 "summary": "Delete a User",
                 "operationId": "deleteUser",
@@ -1140,6 +1733,26 @@
                             }
                         }
                     },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage401"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage403"
+                                }
+                            }
+                        }
+                    },
                     "404": {
                         "description": "Superhero not found",
                         "content": {
@@ -1165,6 +1778,16 @@
         }
     },
     "components": {
+        "securitySchemes": {
+            "BearerAuth": {
+                "type": "http",
+                "scheme": "bearer"
+            },
+            "BasicAuth": {
+                "type": "http",
+                "scheme": "basic"
+            }
+        },
         "schemas": {
             "SuperheroName": {
                 "type": "object",
@@ -1173,6 +1796,21 @@
                         "type": "string",
                         "description": "Superhero name",
                         "example": "Superman"
+                    }
+                }
+            },
+            "UserAuth": {
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "description": "User email",
+                        "example": "hamish.schmidt@web.com"
+                    },
+                    "password": {
+                        "type": "string",
+                        "description": "User password",
+                        "example": "secret"
                     }
                 }
             },
@@ -1215,6 +1853,16 @@
                 "type": "string",
                 "description": "Error message",
                 "example": "Bad Request"
+            },
+            "ErrorMessage401": {
+                "type": "string",
+                "description": "Error message",
+                "example": "Unauthorized"
+            },
+            "ErrorMessage403": {
+                "type": "string",
+                "description": "Error message",
+                "example": "Forbidden"
             },
             "ErrorMessage204": {
                 "type": "string",
