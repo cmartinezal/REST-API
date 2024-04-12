@@ -42,4 +42,4 @@ app.register_blueprint(superpower_endpoints_v1)
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
