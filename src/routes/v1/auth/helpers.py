@@ -17,7 +17,7 @@ def get_token(auth: dict) -> dict:
         return jsonify({"error": "Forbidden"}), 403
 
     user = get_db_data_by_value(
-        'SELECT id, email, password FROM USERS WHERE email = ?', [auth['email'],])
+        "SELECT id, email, password FROM USERS WHERE email = ?", [auth["email"],])
 
     print(user)
     print(auth)
@@ -25,11 +25,11 @@ def get_token(auth: dict) -> dict:
     if not user:
         return jsonify({"error": "Unauthorized"}), 401
 
-    user_password = user[0]['password']
-    auth_password = generate_password_hash(auth.get("password", ""))
-    if auth and check_password_hash(auth_password, user_password):
-        access_token = create_access_token(identity=user[0]['id'], fresh=True)
-        refresh_token = create_refresh_token(user[0]['id'])
+    user_password = user[0]["password"]
+
+    if auth and check_password_hash(user_password, auth.get("password", "")):
+        access_token = create_access_token(identity=user[0]["id"], fresh=True)
+        refresh_token = create_refresh_token(user[0]["id"])
 
         return jsonify({"access_token": access_token, "refresh_token": refresh_token}), 200
 
