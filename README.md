@@ -1,4 +1,5 @@
 # REST-API
+
 REST API built with Flask and documented with Swagger
 
 ## Prerequisites
@@ -20,9 +21,11 @@ pipenv install
 
 ### Run the project
 
-Define the Flask environment variables and access the application in the url http://127.0.0.1:5000
+Define the Flask environment variables, run flask from src folder and access the application in the url <http://127.0.0.1:5000>
+Swagger documentation is available on: <http://127.0.0.1:5000/api/docs>
 
 ```sh
+cd src
 export FLASK_APP=app.py
 export FLASK_ENV=production
 flask run
