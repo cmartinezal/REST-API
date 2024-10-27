@@ -40,11 +40,11 @@ REST API built with Flask and documented with Swagger
 
 This project establishes a REST API with JWT (JSON Web Token) authentication to manage superheroes, superpowers, and users.
 
-A RESTful API is an interface that two computer systems use to exchange information securely over the internet. Most business applications have to communicate with other internal and third-party applications to perform various tasks. Some examples include:
+A REST API is an interface that two computer systems use to exchange information securely over the internet. Most business applications have to communicate with other internal and third-party applications to perform various tasks. Some examples include:
 
-- Social media sites like Twitter, Facebook use REST APIs to integrate with third-party applications and allow posting updates.
-- Ridesharing apps like Uber and Lyft use REST APIs to coordinate cars, obtain maps, fares and location data.
-- Video, music streaming through Netflix, Spotify use REST APIs to get info on media files from servers.
+- Social media sites like Twitter, Facebook use REST APIs to integrate with third-party applications and allow posting updates
+- Ridesharing apps like Uber and Lyft use REST APIs to coordinate cars, obtain maps, fares and location data
+- Video, music streaming through Netflix, Spotify use REST APIs to get info on media files from servers
 
 ### RESTful service
 
@@ -52,10 +52,10 @@ A RESTful service is a web service that follows the Representational State Trans
 
 RESTful services often use a consistent set of HTTP methods (e.g., GET, POST, PUT, DELETE) to manage resources.
 
-- GET retrieves data
-- POST creates data
-- PUT updates data
-- DELETE removes data
+- `GET` retrieves data
+- `POST` creates data
+- `PUT` updates data
+- `DELETE` removes data
 
 For example, if a REST API manages a database of superheroes, a GET request to `/superheroes` could retrieve a list of all superheroes, while a POST request to `/superheroes` could add a new superhero to the database.
 
@@ -63,18 +63,18 @@ For example, if a REST API manages a database of superheroes, a GET request to `
 
 JWT, or JSON Web Token, is a compact, URL-safe means of representing claims to be transferred between two parties in a secure way. For APIs, JWTs are commonly used as authorization tokens to verify the identity of users and control access to secured resources.
 
-- When a user logs in, they provide valid credentials, which are verified by the API.
-- Once authenticated, the server generates a JWT containing user-specific claims (like user ID, roles, and expiration time) and signs it with a secret key.
-- For subsequent requests, the client sends the JWT in the Authorization header, usually prefixed with Bearer, like so: `Authorization: Bearer <token>`.
-- The server verifies the token using the secret key or a public key if asymmetric encryption is used. If valid, the user is granted access; otherwise, the request is denied.
+- When a user logs in, they provide valid credentials, which are verified by the API
+- Once authenticated, the server generates a JWT containing user-specific claims (like user ID, roles, and expiration time) and signs it with a secret key
+- For subsequent requests, the client sends the JWT in the Authorization header, usually prefixed with Bearer, like so: `Authorization: Bearer <token>`
+- The server verifies the token using the secret key or a public key if asymmetric encryption is used. If valid, the user is granted access; otherwise, the request is denied
   
 #### Example JWT Structure
 
 A JWT has three parts:
 
-1. Header: Specifies the algorithm and token type (usually HS256 and JWT).
-2. Payload: Contains the claims (e.g., user data).
-3. Signature: Validates the token’s integrity.
+1. **Header**: Specifies the algorithm and token type (usually HS256 and JWT)
+2. **Payload**: Contains the claims (e.g., user data)
+3. **Signature**: Validates the token’s integrity
 
 Each part is base64-encoded and concatenated, separated by dots (.).
 
@@ -110,13 +110,13 @@ You can see the existing tables and schemas with these commands:
 ## Project Files
 
 - **README.md**: Contains the project description along with installation and execution instructions
-- **Pipfile**: File to specify all required dependencies and specific package versions to install the project using pipenv command
+- **Pipfile**: File to specify all required dependencies to install the project using pipenv command
 - **Pipfile.lock**: Is intended to specify, based on the packages present in Pipfile, which specific version of those should be used, avoiding the risks of automatically upgrading packages that depend upon each other and breaking your project dependency tree
 - **LICENSE**: MIT license that describe the legal terms and conditions for using, distributing, and modifying the software
-- **.pylintrc**: Configuration to use pylint as a code analysis tool or linter program during the project development
+- **.pylintrc**: Configuration file to use pylint as a code analysis tool or linter program during the project development
 - **src/superheroes.db**: Database file created using SQLite3. Allows users to connect to the database and query the existing data used for the API
-- **src/app.py**: Main entry point for this Flask application. It initializes the web application, sets up routes (URLs), the JWT configuration and defines how the application should behave.
-- **static/swagger.json**: It includes the Swagger definition in JSON format that describes the structure of the REST API and builds the interactive documentation. It is based on the OpenAPI Specification version 3.
+- **src/app.py**: Main entry point for this Flask application. It initializes the web application, sets up routes (URLs), the JWT configuration and defines how the application should behave
+- **static/swagger.json**: It includes the Swagger definition in JSON format that describes the structure of the REST API and builds the interactive documentation. It is based on the OpenAPI Specification version 3
 - **src/routes/utils/\_\_init\_\_.py**: Module that inits utils package
 - **src/routes/utils/database.py**: Module contained in utils package to manage the interactions with the data layer contained in the SQLite3 database
 - **src/routes/utils/validations.py**: Module contained in utils package to validate body payloads in the API requests
@@ -124,7 +124,7 @@ You can see the existing tables and schemas with these commands:
 - **src/routes/v1/auth/helpers.py**: Module contained in auth package that manages the logic for authentication routes for the API version 1
 - **src/routes/v1/superheroes/\_\_init\_\_.py**: Module contained in auth package that defines the superheroes routes for the API version 1
 - **src/routes/v1/superheroes/helpers.py**: Module contained in auth package that manages the logic for superheroes routes for the API version 1
-- **src/routes/v1/uperpowers/\_\_init\_\_.py**: Module contained in auth package that defines the superpowers routes for the API version 1
+- **src/routes/v1/superpowers/\_\_init\_\_.py**: Module contained in auth package that defines the superpowers routes for the API version 1
 - **src/routes/v1/superpowers/helpers.py**: Module contained in auth package that manages the logic for superpowers routes for the API version 1
 - **src/routes/v1/users/\_\_init\_\_.py**: Module contained in auth package that defines the users routes for the API version 1
 - **src/routes/v1/users/helpers.py**: Module contained in auth package that manages the logic for users routes for the API version 1
@@ -169,6 +169,9 @@ flask run
 ## Usage
 
 ### Swagger Documentation
+
+Swagger is based on the OpenAPI Specification (OAS), a format for defining RESTful API endpoints, their HTTP methods, parameters, request and response formats, and authentication requirements.
+Written in JSON or YAML, an OpenAPI document acts as a blueprint of the API that describes every aspect, including data types and validation rules.
 
 ![Screenshot 2024-10-26 at 19 54 29](https://github.com/user-attachments/assets/1ffbcfa7-a81b-41fc-8288-3f27ce08fe19)
 
