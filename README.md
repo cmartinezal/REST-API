@@ -40,6 +40,16 @@ REST API built with Flask and documented with Swagger
 
 This project establishes a REST API with JWT (JSON Web Token) authentication to manage superheroes, superpowers, and users.
 
+A RESTful API is an interface that two computer systems use to exchange information securely over the internet. Most business applications have to communicate with other internal and third-party applications to perform various tasks. Some examples include:
+
+- Social media sites like Twitter, Facebook use REST APIs to integrate with third-party applications and allow posting updates.
+- Ridesharing apps like Uber and Lyft use REST APIs to coordinate cars, obtain maps, fares and location data.
+- Video, music streaming through Netflix, Spotify use REST APIs to get info on media files from servers.
+
+### RESTful service
+
+A RESTful service is a web service that follows the Representational State Transfer (REST) architectural style. RESTful services are designed to work well on the web and are built on the HTTP protocol. They use a client/server architecture and a standardized interface and protocol to exchange resource representations between clients and servers.
+
 RESTful services often use a consistent set of HTTP methods (e.g., GET, POST, PUT, DELETE) to manage resources.
 
 - GET retrieves data
@@ -49,14 +59,34 @@ RESTful services often use a consistent set of HTTP methods (e.g., GET, POST, PU
 
 For example, if a REST API manages a database of superheroes, a GET request to `/superheroes` could retrieve a list of all superheroes, while a POST request to `/superheroes` could add a new superhero to the database.
 
+### JWT Authentication
+
+JWT, or JSON Web Token, is a compact, URL-safe means of representing claims to be transferred between two parties in a secure way. For APIs, JWTs are commonly used as authorization tokens to verify the identity of users and control access to secured resources.
+
+- When a user logs in, they provide valid credentials, which are verified by the API.
+- Once authenticated, the server generates a JWT containing user-specific claims (like user ID, roles, and expiration time) and signs it with a secret key.
+- For subsequent requests, the client sends the JWT in the Authorization header, usually prefixed with Bearer, like so: `Authorization: Bearer <token>`.
+- The server verifies the token using the secret key or a public key if asymmetric encryption is used. If valid, the user is granted access; otherwise, the request is denied.
+  
+#### Example JWT Structure
+
+A JWT has three parts:
+
+1. Header: Specifies the algorithm and token type (usually HS256 and JWT).
+2. Payload: Contains the claims (e.g., user data).
+3. Signature: Validates the token’s integrity.
+
+Each part is base64-encoded and concatenated, separated by dots (.).
+
 ## Project Architecture
 
+REST APIs use a client-server model to design networked applications, separating the user interface (client) from the back-end services (server). The client and server are independent of each other, and their interactions are limited to the client sending a request to the server, and the server responding. This separation of concerns makes user interfaces very portable and server elements more scalable.
+
 This project uses a client-server architecture with requests managed through HTTP. It has been implemented in Python using the Flask framework, with API documentation provided through Swagger.
+
 <br/>
 
 ![API architecture](https://github.com/user-attachments/assets/f2d27668-95ec-40f2-b488-e22f6a0824ce)
-
-
 
 The database has been created using SQLite3 that is a lightweight, serverless, self-contained SQL database engine. Unlike traditional database management systems that require a server, SQLite is file-based, meaning the entire database is stored in a single file on disk. This design makes it easy to set up and use, as there’s no need for configuration, installation, or a dedicated database server to run it.
 
@@ -72,10 +102,32 @@ You can see the existing tables and schemas with these commands:
 .tables
 .schema
 ```
+
 <br/>
 
 ![Screenshot 2024-10-26 at 18 20 43](https://github.com/user-attachments/assets/be15ea8b-c700-4891-8171-a9644abc7137)
 
+## Project Files
+
+- **README.md**: Contains the project description along with installation and execution instructions
+- **Pipfile**: File to specify all required dependencies and specific package versions to install the project using pipenv command
+- **Pipfile.lock**: Is intended to specify, based on the packages present in Pipfile, which specific version of those should be used, avoiding the risks of automatically upgrading packages that depend upon each other and breaking your project dependency tree
+- **LICENSE**: MIT license that describe the legal terms and conditions for using, distributing, and modifying the software
+- **.pylintrc**: Configuration to use pylint as a code analysis tool or linter program during the project development
+- **src/superheroes.db**: Database file created using SQLite3. Allows users to connect to the database and query the existing data used for the API
+- **src/app.py**: Main entry point for this Flask application. It initializes the web application, sets up routes (URLs), the JWT configuration and defines how the application should behave.
+- **static/swagger.json**: It includes the Swagger definition in JSON format that describes the structure of the REST API and builds the interactive documentation. It is based on the OpenAPI Specification version 3.
+- **src/routes/utils/\_\_init\_\_.py**: Module that inits utils package
+- **src/routes/utils/database.py**: Module contained in utils package to manage the interactions with the data layer contained in the SQLite3 database
+- **src/routes/utils/validations.py**: Module contained in utils package to validate body payloads in the API requests
+- **src/routes/v1/auth/\_\_init\_\_.py**: Module contained in auth package that defines the authentication routes for the API version 1
+- **src/routes/v1/auth/helpers.py**: Module contained in auth package that manages the logic for authentication routes for the API version 1
+- **src/routes/v1/superheroes/\_\_init\_\_.py**: Module contained in auth package that defines the superheroes routes for the API version 1
+- **src/routes/v1/superheroes/helpers.py**: Module contained in auth package that manages the logic for superheroes routes for the API version 1
+- **src/routes/v1/uperpowers/\_\_init\_\_.py**: Module contained in auth package that defines the superpowers routes for the API version 1
+- **src/routes/v1/superpowers/helpers.py**: Module contained in auth package that manages the logic for superpowers routes for the API version 1
+- **src/routes/v1/users/\_\_init\_\_.py**: Module contained in auth package that defines the users routes for the API version 1
+- **src/routes/v1/users/helpers.py**: Module contained in auth package that manages the logic for users routes for the API version 1
 
 ## Getting Started
 
@@ -88,6 +140,12 @@ python3 --version
 ```
 
 ### Installation
+
+pipenv must be installed. You can install it with the following command:
+
+```sh
+pip install pipenv --user
+```
 
 To activate pipenv virtual environment and install all required libraries from Pipfile use this commands:
 
@@ -107,12 +165,12 @@ export FLASK_APP=app.py
 export FLASK_ENV=production
 flask run
 ```
+
 ## Usage
 
 ### Swagger Documentation
 
 ![Screenshot 2024-10-26 at 19 54 29](https://github.com/user-attachments/assets/1ffbcfa7-a81b-41fc-8288-3f27ce08fe19)
-
 
 - Swagger Web: ```http://127.0.0.1:5000/api/docs```
 
@@ -121,11 +179,10 @@ flask run
 ### Authentication Endpoints
 
 The authentication is based in JSON Web Token (JWT)\
-The auth token is required to access to users secured enpoints.\
-The refresh token enpoint exists to enable authorization servers to use short lifetimes for access tokens without needing to involve the user when the token expires.
+The auth token is required to access to users secured endpoints.\
+The refresh token endpoint exists to enable authorization servers to use short lifetimes for access tokens without needing to involve the user when the token expires.
 
 ![image](https://github.com/user-attachments/assets/c92f1099-a025-41ea-922a-d5395c9755dd)
-
 
 The requests can be performed to the following urls:
 
@@ -136,7 +193,7 @@ The requests can be performed to the following urls:
 
 ![Screenshot 2024-10-26 at 20 08 26](https://github.com/user-attachments/assets/b7aeaff7-d539-4096-95a7-9434a981539f)
 
-There are three groups of enpoints grouped by entity, Users, Superheores and Superpowers.
+There are three groups of endpoints grouped by entity, Users, Superheroes and Superpowers.
 
 - **Users:** Manages the users that have access to to the secured API endpoints
 - **Superheroes:** Manages the superheroes and their assigned superpowers
@@ -156,16 +213,12 @@ A JWT will be issued for the test user specified:
 
 ![image](https://github.com/user-attachments/assets/9a73f47d-91a9-432c-98ae-2679edb76362)
 
-
-Copy the value of access_token in Authorization to allow Swagger to send the Authorization header required in the secured enpoints:
+Copy the value of access_token in Authorization to allow Swagger to send the Authorization header required in the secured endpoints:
 
 ![image](https://github.com/user-attachments/assets/c3164804-8473-4102-a871-9c3a4e197986)
-
 
 ### 2. Access to Get all superheroes secured endpoint
 
 As we can see the authorization header is sent in the request and we can access to the secured endpoint and obtain the list of superheroes in the response body:
 
 ![image](https://github.com/user-attachments/assets/d94a0f79-c58a-4df6-8475-346e0c642a2c)
-
-
