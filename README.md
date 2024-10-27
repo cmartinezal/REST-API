@@ -3,14 +3,22 @@
 REST API built with Flask and documented with Swagger
 
 <!-- TABLE OF CONTENTS -->
-<details>
+details>
   <summary>Table of Contents</summary>
   <ol>
     <li>
       <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#restful-service">RESTful service</a></li>
+        <li><a href="#jwt-authentication">JWT Authentication</a></li>
+        <li><a href="#example-jwt-structure">Example JWT Structure</a></li>
+      </ul>
     </li>
     <li>
       <a href="#project-architecture">Project Architecture</a>
+    </li>
+    <li>
+      <a href="#project-files">Project Files</a>
     </li>
     <li>
       <a href="#getting-started">Getting Started</a>
