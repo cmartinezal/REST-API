@@ -121,15 +121,15 @@ flask run
 
 The authentication is based in JSON Web Token (JWT)\
 The auth token is required to access to users secured enpoints.\
-The refresh token endpint exists to enable authorization servers to use short lifetimes for access tokens without needing to involve the user when the token expires.
+The refresh token enpoint exists to enable authorization servers to use short lifetimes for access tokens without needing to involve the user when the token expires.
 
 ![image](https://github.com/user-attachments/assets/c92f1099-a025-41ea-922a-d5395c9755dd)
 
 
 The requests can be performed to the following urls:
 
-- *POST* ```http://127.0.0.1:5000/api/v1/auth/token```
-- *POST* ```http://127.0.0.1:5000/api/v1/auth/refresh```
+- **POST** ```http://127.0.0.1:5000/api/v1/auth/token```
+- **POST** ```http://127.0.0.1:5000/api/v1/auth/refresh```
 
 ### REST API Endpoints
 
@@ -137,9 +137,9 @@ The requests can be performed to the following urls:
 
 There are three groups of enpoints grouped by entity, Users, Superheores and Superpowers.
 
-- *Users* Manages users that have access to to the secured API endpoints
-- *Superheores* Manages the superheroes and their assigned superpowers
-- *Superpowers* Manages the superpowers that will be assigned to the superheroes
+- **Users:** Manages the users that have access to to the secured API endpoints
+- **Superheroes:** Manages the superheroes and their assigned superpowers
+- **Superpowers:** Manages the superpowers that will be assigned to the superheroes
 
 ## Example: Get all superheroes
 
@@ -163,7 +163,7 @@ Copy the value of access_token in Authorization to allow Swagger to send the Aut
 
 ### 2. Access to Get all superheroes secured endpoint
 
-As we can see the authorization header is sent in the request and we can access to the secure endpoint and we obtain a list of superheroes in the response body:
+As we can see the authorization header is sent in the request and we can access to the secured endpoint and obtain the list of superheroes in the response body:
 
 ![image](https://github.com/user-attachments/assets/d94a0f79-c58a-4df6-8475-346e0c642a2c)
 
