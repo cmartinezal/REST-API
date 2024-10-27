@@ -7,6 +7,7 @@ from typing import List
 
 def row_to_dict(cursor: sqlite3.Cursor, row: sqlite3.Row) -> dict:
     """format data to dictionary"""
+
     data = {}
     for idx, col in enumerate(cursor.description):
         if (col[0]) == "superpowers" and isinstance(row[idx], str):
@@ -71,6 +72,7 @@ def insert_row(query: str, values: List[int], select_query: str, select_values: 
 
 def update_row(query: str, values: List[str], row_id: int, select_query: str) -> dict:
     """update existing row"""
+
     try:
         con = sqlite3.connect("superheroes.db")
         con.row_factory = row_to_dict
@@ -89,6 +91,7 @@ def update_row(query: str, values: List[str], row_id: int, select_query: str) ->
 
 def delete_row(query: str, values: List[int]) -> dict:
     """delete existing row"""
+
     try:
         con = sqlite3.connect("superheroes.db")
         con.row_factory = row_to_dict

@@ -7,12 +7,14 @@ from flask_jwt_extended import (
     create_refresh_token,
     get_jwt_identity
 )
-from werkzeug.security import check_password_hash, generate_password_hash
+from werkzeug.security import check_password_hash
 from flask import jsonify
 from ...utils.database import get_db_data_by_value
 
 
 def get_token(auth: dict) -> dict:
+    """Get the API token for a existing user"""
+
     if not auth:
         return jsonify({"error": "Forbidden"}), 403
 
@@ -34,6 +36,8 @@ def get_token(auth: dict) -> dict:
 
 
 def refresh_token() -> None:
+    """Refresh the API token using an access_token"""
+
     identity = get_jwt_identity()
     access_token = create_access_token(identity=identity, fresh=True)
     refresh_token = create_refresh_token(identity)
