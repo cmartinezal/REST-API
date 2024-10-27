@@ -54,7 +54,8 @@ For example, if a REST API manages a database of superheroes, a GET request to `
 This project uses a client-server architecture with requests managed through HTTP. It has been implemented in Python using the Flask framework, with API documentation provided through Swagger.
 <br/>
 
-![API architecture](https://github.com/user-attachments/assets/ed822001-d4f0-4e71-9764-3980053c420e)
+![API architecture](https://github.com/user-attachments/assets/f2d27668-95ec-40f2-b488-e22f6a0824ce)
+
 
 
 The database has been created using SQLite3 that is a lightweight, serverless, self-contained SQL database engine. Unlike traditional database management systems that require a server, SQLite is file-based, meaning the entire database is stored in a single file on disk. This design makes it easy to set up and use, as there’s no need for configuration, installation, or a dedicated database server to run it.
