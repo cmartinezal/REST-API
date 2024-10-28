@@ -1171,7 +1171,7 @@
                 "parameters": [
                     {
                         "name": "id",
-                        "description": "Superhero id",
+                        "description": "Superpower id",
                         "in": "path",
                         "required": true,
                         "schema": {
